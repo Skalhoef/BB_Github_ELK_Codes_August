@@ -314,6 +314,9 @@ real(8) afieldl(3)
 !  1 : full symmetry group is used
 !  2 : only symmorphic symmetries are allowed
 integer symtype
+! Lars and Sebastian: trsym is true <=> the system is forced to be TRS
+! (implying that it is non-magnetic)
+logical trsym
 ! number of Bravais lattice point group symmetries
 integer nsymlat
 ! Bravais lattice point group symmetries

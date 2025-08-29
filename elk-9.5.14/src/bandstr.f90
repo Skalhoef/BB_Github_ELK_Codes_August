@@ -10,6 +10,7 @@ subroutine bandstr
 ! !USES:
 use modmain
 use modomp
+
 ! !DESCRIPTION:
 !   Produces a band structure along the path in reciprocal space which connects
 !   the vertices in the array {\tt vvlp1d}. The band structure is obtained from
@@ -25,6 +26,7 @@ use modomp
 !EOP
 !BOC
 implicit none
+
 ! local variables
 integer ik,ist,ispn,is,ia,ias
 integer lmax,lmmax,l,m,lm,iv,nthd
@@ -51,6 +53,7 @@ else if (task == 22) then
 else if (task == 23) then
   allocate(bc(nspinor,natmtot,nstsv,nkpt))
 end if
+
 ! read density and potentials from file
 call readstate
 ! Fourier transform Kohn-Sham potential to G-space
@@ -65,6 +68,7 @@ call genapwlofr
 call gensocfr
 emin=1.d5
 emax=-1.d5
+
 ! begin parallel loop over k-points
 call holdthd(nkpt,nthd)
 !$OMP PARALLEL DEFAULT(SHARED) &
@@ -100,6 +104,11 @@ do ik=1,nkpt
       call match(ngk(ispn,ik),vgkc(:,:,ispn,ik),gkc(:,ispn,ik), &
        sfacgk(:,:,ispn,ik),apwalm(:,:,:,:,ispn))
     end do
+
+    ! SK Begin: Stopping the code
+    ! stop
+    ! SK End 
+
 ! average band character over spin and m for all atoms
     do ias=1,natmtot
 ! generate the diagonal of the density matrix

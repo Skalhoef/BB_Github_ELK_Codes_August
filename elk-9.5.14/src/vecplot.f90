@@ -40,6 +40,7 @@ if ((task == 72).or.(task == 73).or.(task == 82).or.(task == 83)) then
 end if
 ! read magnetisation and exchange-correlation magnetic field from file
 call readstate
+! call readMag_Sebbe
 allocate(rvfmt(npmtmax,natmtot,3),rvfir(ngtot,3))
 select case(task)
 case(71,72,73)

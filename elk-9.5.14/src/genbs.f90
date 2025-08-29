@@ -63,5 +63,13 @@ end do
 call freethd(nthd)
 ! add the magnetic dipole field if required
 if (tbdip) call bdipole
+
+! SK: Begin Additions
+if(trsym) then
+  bsir(:,:)=0.d0
+  bsmt(:,:,:)=0.d0
+end if
+! SK: End Additions
+
 end subroutine
 

@@ -180,6 +180,8 @@ rmtdelta=0.05d0
 isgkmax=-1
 symtype=1
 deltaph=0.01d0
+! Lars and Sebastian: default value of trsym
+trsym=.false.
 nphwrt=1
 if (allocated(vqlwrt)) deallocate(vqlwrt)
 allocate(vqlwrt(3,nphwrt))
@@ -1030,6 +1032,9 @@ case('symtype')
     write(*,*)
     stop
   end if
+! Lars and Sebastian
+ case('trsym')
+    read(50,*,err=20) trsym
 case('deltaph')
   read(50,*,err=20) deltaph
   if (deltaph <= 0.d0) then

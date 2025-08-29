@@ -32,6 +32,7 @@ integer ngridg_(3),ngtot_,ngvec_
 integer ndmag_,nspinor_,fsmtype_,ftmtype_
 integer dftu_,lmmaxdm_,xcgrad_
 real(8) t1
+
 ! allocatable arrays
 integer, allocatable :: mapir(:)
 real(8), allocatable :: rsp_(:,:),rcmt_(:,:)
@@ -195,6 +196,18 @@ if (spinpol_) then
   read(100) rvfcmt_,rvfir_
   call rgvfcmt(bsmt)
   call rgvir(bsir)
+  
+  ! SK: Begin Additions
+  if (trsym) then
+     magmt(:,:,:)=0.d0
+     magir(:,:)=0.d0
+     bxcmt(:,:,:)=0.d0
+     bsmt(:,:,:)=0.d0
+     bxcir(:,:)=0.d0
+     bsir(:,:)=0.d0
+  end if
+  ! SK: End Additions 
+
   deallocate(rvfmt_,rvfir_,rvfcmt_)
 ! read fixed spin moment effective fields
   if (fsmtype_ /= 0) then

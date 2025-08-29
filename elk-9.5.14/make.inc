@@ -92,6 +92,13 @@ SRC_W90S = w90_stub.f90
 #-------------------------------------------------------------------------------
 # GNU Fortran compiler with OpenBLAS, LAPACK and FFTW
 F90 = mpif90
+
+# For debugging:
+# F90_OPTS = -O0 -g -Wall -Wextra -Wconversion -Wuninitialized -fcheck=all -fbacktrace -fopenmp
+# F90_OPTS = -O1 -march=native -mtune=native -fopenmp -ffpe-summary=none -Wno-lto-type-mismatch
+# F90_OPTS = -O2 -march=native -mtune=native -fopenmp -ffpe-summary=none -Wno-lto-type-mismatch
+
+
 F90_OPTS = -Ofast -march=native -mtune=native -fopenmp -ffpe-summary=none -Wno-lto-type-mismatch
 F90_LIB = -lopenblas -llapack -lfftw3 -lfftw3f
 SRC_OBLAS =

@@ -74,7 +74,7 @@ else
     end if
   end do
 end if
-if (any(task == [20,21,22,23])) then
+if (any(task == [20,21,22,23,24,26,901])) then
 ! generate k-points along a path for band structure plots
   call plotpt1d(bvec,nvp1d,npp1d,vvlp1d,vplp1d,dvp1d,dpp1d)
   nkpt=npp1d
@@ -129,7 +129,7 @@ else
   boxl(2,2)=boxl(2,2)+1.d0
   boxl(3,3)=boxl(3,3)+1.d0
 ! k-point set and box for Fermi surface plots
-  if (any(task == [100,101,102])) then
+  if (any(task == [100,101,102,103])) then
     ngridk(:)=np3d(:)
     if (task /= 102) boxl(:,:)=vclp3d(:,:)
   end if
@@ -187,6 +187,8 @@ call findngkmax(nkpt,vkc,nspnfv,vqcss,ngvc,vgc,gkmax,ngkmax)
 if (allocated(ngk)) deallocate(ngk)
 allocate(ngk(nspnfv,nppt))
 if (allocated(igkig)) deallocate(igkig)
+
+
 allocate(igkig(ngkmax,nspnfv,nppt))
 if (allocated(vgkl)) deallocate(vgkl)
 allocate(vgkl(3,ngkmax,nspnfv,nppt))
@@ -214,7 +216,6 @@ do ik=1,nppt
     call gengkvec(ngvc,ivg,vgc,vl,vc,gkmax,ngkmax,ngk(jspn,ik), &
      igkig(:,jspn,ik),vgkl(:,:,jspn,ik),vgkc(:,:,jspn,ik),gkc(:,jspn,ik))
 ! generate structure factors for G+k-vectors
-    call gensfacgp(ngk(jspn,ik),vgkc(:,:,jspn,ik),ngkmax,sfacgk(:,:,jspn,ik))
   end do
 end do
 ! write to VARIABLES.OUT

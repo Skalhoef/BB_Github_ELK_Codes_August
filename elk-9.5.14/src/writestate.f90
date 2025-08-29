@@ -24,6 +24,7 @@ implicit none
 integer idm,is,ias
 ! allocatable arrays
 real(8), allocatable :: rfmt(:,:,:),rvfmt(:,:,:,:),rvfcmt(:,:,:,:)
+
 open(100,file='STATE'//trim(filext),form='UNFORMATTED',action='WRITE')
 write(100) version
 write(100) spinpol

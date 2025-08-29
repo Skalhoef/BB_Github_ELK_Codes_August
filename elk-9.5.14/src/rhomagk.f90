@@ -1,4 +1,3 @@
-
 ! Copyright (C) 2002-2010 J. K. Dewhurst, S. Sharma and C. Ambrosch-Draxl.
 ! This file is distributed under the terms of the GNU General Public License.
 ! See the file COPYING for license details.
@@ -10,6 +9,7 @@ subroutine rhomagk(ngp,igpig,lock,wppt,occsvp,apwalm,evecfv,evecsv)
 ! !USES:
 use modmain
 use modomp
+use modsebbe
 ! !INPUT/OUTPUT PARAMETERS:
 !   ngp    : number of G+p-vectors (in,integer(nspnfv))
 !   igpig  : index from G+p-vectors to G-vectors (in,integer(ngkmax,nspnfv))
