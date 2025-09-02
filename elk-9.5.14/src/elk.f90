@@ -22,6 +22,14 @@ call mpi_comm_dup(mpi_comm_world,mpicom,ierror)
 call mpi_comm_size(mpicom,np_mpi,ierror)
 ! determine the local MPI process number
 call mpi_comm_rank(mpicom,lp_mpi,ierror)
+
+! SK: Begin Additions
+open(91,file='C_EVECSV_INFO'//trim(filext),form='FORMATTED')
+open(92,file='C_rhonk_INFO'//trim(filext),form='FORMATTED')
+! We don't open the file here, as it is already opened in readMag_Sebbe.f90
+! open(93,file='C_MAG_STATE'//trim(filext),form='UNFORMATTED',action='WRITE')
+! SK: End Additions
+
 ! determine if the local process is the master
 if (lp_mpi == 0) then
   mp_mpi=.true.
@@ -128,8 +136,14 @@ do itask=1,ntasks
     call writelsj
   case(20,21,22,23)
     call bandstr
+  case(24)
+    call spintexture1d ! SK: Added Subroutine and Task
   case(25)
     call effmass
+  case(26)
+    call rhonkLOBasis ! SK: Added Subroutine and Task
+  case(901)
+    call compute_plane_magn_nk_resolved ! SK: Added Subroutine and Task
   case(28,29)
     call mae
   case(31,32,33)
@@ -148,8 +162,8 @@ do itask=1,ntasks
     call vecplot
   case(91,92,93)
     call dbxcplot
-  case(100,101)
-    call fermisurf
+  case(100,101,103)
+    call fermisurf ! SK: Modified Subroutine, added Task 103
   case(102)
     call fermisurfbxsf
   case(105)
@@ -290,6 +304,12 @@ if (mp_mpi) then
   write(*,'("| Elk code stopped |")')
   write(*,'("+------------------+")')
 end if
+! SK: Begin Additions
+close(91)
+close(92)
+! We don't close the file here, as it is already closed in readMag_Sebbe.f90
+! close(93)
+! SK: End Additions
 ! terminate MPI execution environment
 call mpi_finalize(ierror)
 end program
